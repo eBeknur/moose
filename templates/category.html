@@ -1,0 +1,69 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block content %}
+
+	<section class="hero-wrap hero-wrap-2">
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-center justify-content-center">
+				<div class="col-md-9 text-center ftco-animate pt-5">
+					<h1 class="mb-3 bread"></h1>
+					<p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>Blog <i class="fa fa-chevron-right"></i></span></p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section">
+		<div class="container-fluid">
+			<div class="row">
+				{% for post in posts %}
+				<div class="col-md-6 col-lg-4 blog-wrap blog-wrap-2 px-md-5 ftco-animate">
+					<a href="/blog-single/{{ post.id }}" class="img img-blog w-100 border d-block" style="background-image: url({{ post.image.url }});">
+
+					</a>
+					<div class="text text-2 py-4 p-0 ftco-animate">
+						<p class="meta">
+							<a href="#"><span class="fa fa-calendar mr-2"></span>{{ post.created_at }}</a>
+							<a href="#"><span class="fa fa-user mr-2"></span>Admin</a>
+							<a href="#" class="meta-chat"><span class="fa fa-comment mr-2"></span> 3</a>
+						</p>
+						<h2 class="mb-4"><a href="/blog-single/{{ post.id }}">{{ post.title }}</a></h2>
+						<div class="icon d-flex align-items-center">
+							<div class="img" style="background-image: url('{{ post.author_image.url}}');">
+							</div>
+							<div class="position pl-3">
+								<h4 class="mb-0">{{ post.author }}</h4>
+								<span>{{ post.author_positions }}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			<div class="row mt-5">
+				<div class="col text-center">
+					<div class="block-27">
+						<ul>
+							{% if is_first %}
+							{% else %}
+							<li><a href="/category/LIFE/?page={{ prev_page }}">&lt;</a></li>
+							{% endif %}
+							{% for page in page_count %}
+								{% if page == current_page %}
+									<li class="active"><span href="/category/LIFE/?page=2{{ page }}" ><span>{{ page }}</span></span></li>
+								{% else %}
+									<li><a href="/category/LIFE/?page={{ page }}" ><span>{{ page }}</span></a></li>
+								{% endif %}
+							{% endfor %}
+							{% if is_last %}
+							{% else %}
+							<li><a href="/category/LIFE/?page={{ next_page }}">&gt;</a></li>
+							{% endif %}
+						</ul>
+					</div>
+				</div>
+			</div>		</div>
+	</section>
+
+        {% endblock content %}
