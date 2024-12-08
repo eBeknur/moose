@@ -119,7 +119,7 @@ def login_view(request):
         if auth:
             login(request , auth)
         # if not user:
-        #     return render( request , 'login.html' , context={'error': 'username not found'})
+        return render( request , 'login.html' , context={'error': 'username or password  incorrect'})
 
 
 
