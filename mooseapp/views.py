@@ -1,5 +1,7 @@
 
 from django.contrib.auth import authenticate , login, logout
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from mooseapp.models import Post , Comment , Contact , Category
 from .pagenations import Pagination
@@ -113,16 +115,14 @@ def login_view(request):
         data = request.POST
         username = data.get('username')
         password = data.get('password')
-        # user = User.objects.filter(username=username).first()
+
         auth = authenticate(request , username=username , password=password)
 
         if auth:
             login(request , auth)
-        # if not user:
+            return redirect('/')
+
         return render( request , 'login.html' , context={'error': 'username or password  incorrect'})
-
-
-
 
     return render(request, 'login.html')
 
@@ -143,6 +143,12 @@ def register_view(request):
         data = request.POST
         username = data.get('username')
         password = data.get('password')
+        exists = User.objects.filter(username=username).first()
+        if exists:
+            return render (request , 'register.html' , context={'error': 'username has already been taken'})
+        user = User.objects.create(username=username , password=make_password(password))
+        user.save()
+        return redirect('/login')
         
     return render(request , 'register.html')
 
