@@ -35,6 +35,13 @@
          <li class="nav-item "><a href="/blog" class="nav-link">Articles</a></li>
          <li class="nav-item "><a href="/about" class="nav-link">About</a></li>
          <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+					{% if request.user.is_authenticated %}
+         <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+					{% else %}
+         <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
+					<li class="nav-item"><p class="nav-link">or</p></li>
+         <li class="nav-item"><a href="/register" class="nav-link">Signup</a></li>
+					{% endif %}
 				</ul>
 			</div>
 		</div>
